@@ -1,10 +1,148 @@
 {{page-title "World Time"}}
 
-<div class="col-12">
+<div class="col-12 page">
   <div class="row">
     <DropDown/>
     <ButtonMode/>
   </div>
 </div>
+<div id ="loading"></div>
 <DateDay/>
 <DateHours/>
+
+
+
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script>
+
+//load fungsi
+window.onload = setInterval(show, 500);
+
+//storing json
+var obj = [
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+12"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+11"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+9"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+7"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+5"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+3"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+2"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+1"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-1"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-2"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-3"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-5"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-7"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-9"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-11"),
+          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-12"),
+          ]
+
+//fungsi ganti mode               
+function gantiMode(){
+    if(document.getElementById("mode").innerText == "Seconds Mode")document.getElementById("mode").innerText = "Normal Mode"
+    else if(document.getElementById("mode").innerText == "Normal Mode")document.getElementById("mode").innerText = "Seconds Mode"
+    setInterval(show, 500);
+}
+
+//fungsi untuk tampilan utama kita (jam, hari, etc) :D
+function show(){
+ 
+    //untuk tanggal, hari dan bulan
+    var weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var Month = ["January", "February", "March", "April", "June", "July", "August", "September", "October", "November", "December"];
+    var date = new Date()
+    var utcTime = date.getTime() + (date.getTimezoneOffset() * 60000);
+    var GMT = [new Date(utcTime + (3600000 * obj[0])), new Date(utcTime + (3600000 * obj[1])), new Date(utcTime + (3600000 * obj[2])), new Date(utcTime + (3600000 * obj[3])),
+            new Date(utcTime + (3600000 * obj[4])), new Date(utcTime + (3600000 * obj[5])), new Date(utcTime + (3600000 * obj[6])), new Date(utcTime + (3600000 * obj[7])),
+            new Date(utcTime + (3600000 * obj[8])), new Date(utcTime + (3600000 * obj[9])), new Date(utcTime + (3600000 * obj[10])), new Date(utcTime + (3600000 * obj[11])),
+            new Date(utcTime + (3600000 * obj[12])), new Date(utcTime + (3600000 * obj[13])), new Date(utcTime + (3600000 * obj[14])), new Date(utcTime + (3600000 * obj[15])),
+            new Date(utcTime + (3600000 * obj[16])), new Date(utcTime + (3600000 * obj[17])), new Date(utcTime + (3600000 * obj[18])),  new Date(utcTime + (3600000 * obj[19])),
+            new Date(utcTime + (3600000 * obj[20])),  new Date(utcTime + (3600000 * obj[21])), new Date(utcTime + (3600000 * obj[22])), new Date(utcTime + (3600000 * obj[23])), 
+            new Date(utcTime + (3600000 * obj[24])),
+            ]
+
+
+    //untuk jam default kita           
+    class Tik {
+    constructor(detik, menit, jam, tanggal, hari, bulan, tahun) {
+    this.detik = detik;
+    this.menit = menit;
+    this.jam = jam;
+    this.tanggal = tanggal;
+    this.hari = hari;
+    this.bulan = bulan;
+    this.tahun = tahun;
+    }
+    }
+    var jadwal = new Tik(date.getSeconds(), date.getMinutes(), date.getHours(), date.getHours(), date.getDay(), date.getMonth(), date.getFullYear())
+
+    //jam untuk setiap negara
+    var country = { "Eniwetok, Kwaialein (GMT - 12)" : 0, "Midway Island (GMT - 11)" : 1, "Hawaii, Honolulue (GMT - 10)" : 2, 
+                "Alaska (GMT - 9)" : 3, "America, Los Angeles (GMT - 8)" : 4, "America, Alberta (GMT - 7)" : 5, "Mexico City (GMT - 6)" : 6, 
+                "America, New York (GMT - 5)" : 7, "Chilie, Santiago (GMT - 4)" : 8, "Canada, Ottawa (GMT - 3)" : 9,
+                "Mid Atlantic (GMT - 2)" : 10,"West Africa (GMT - 1)" : 11, "British, London (GMT)" : 12, "Dutch, Amsterdam (GMT + 1)" : 13,
+                "Greece, Athena (GMT + 2)" : 14, "Iraq, Baghad (GMT + 3)" : 15, "United Arab Emirates, Abu Dhabi (GMT + 4)" : 16,
+                "India, New Delhi (GMT + 5)" : 17, "Bhutan, Thimpu (GMT + 6)" : 18, "Indonesia, Jakarta (GMT + 7)" : 19, 
+                "China, Beijing (GMT + 8)" : 20, "Japan, Tokyo (GMT + 9)" : 21, "Australia, Melbourne (GMT + 10)" : 22,
+                "Solomon Island, Honiara (GMT + 11)" : 23, "New Zealand, Wellington (GMT + 12)" : 24
+    }
+
+    //mengambil waktu
+    if(document.getElementById("dropdownMenuButton").innerText in country){
+    jadwal = penyesuaian(jadwal, GMT[country[document.getElementById("dropdownMenuButton").innerText]]);
+    }
+
+
+    //menampilkan hari kita
+    document.getElementById("tampilHari").innerText = weekDay[jadwal.hari].toString() + ", "
+                                                    +  jadwal.tanggal.toString() + " " + Month[jadwal.bulan] + " " 
+                                                    + jadwal.tahun.toString() 
+
+
+    //menampilkan jam kita sesuai dengan mode yang kita pilih
+    if(document.getElementById("mode").innerText == "Seconds Mode"){
+        document.getElementById("waktu").innerText = jadwal.jam.toString().padStart(2, "0") + ":"
+                                                +  jadwal.menit.toString().padStart(2, "0") + ":" 
+                                                + jadwal.detik.toString().padStart(2, "0")
+    }else if(document.getElementById("mode").innerText == "Normal Mode"){
+        document.getElementById("waktu").innerText = jadwal.jam.toString().padStart(2, "0") + ":"
+                                                    +  jadwal.menit.toString().padStart(2, "0")
+    }
+
+
+    //merubah background sesuai dengan jam kita 
+    if(jadwal.jam <= 6 && jadwal.jam >=0 )document.body.style.backgroundImage = "url(../assets/images/night.jpg)";
+    else if(jadwal.jam >=7 && jadwal.jam <= 23)document.body.style.backgroundImage = "url(../assets/images/day.jpg)";
+  
+}
+
+//untuk dapatkan timeworld api
+function GetOffSet(URL){
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET",URL,false);
+    Httpreq.send(null);
+    var offset = JSON.parse(Httpreq.responseText).utc_offset;
+    var dict = {"+12:00": 12, "+11:00": 11, "+10:00": 10, "+09:00": 9, "+08:00": 8, "+07:00": 7, "+06:00": 6, "+05:00": 5, "+04:00": 4,
+                "+03:00": 3, "+02:00": 2, "+01:00": 1, "+00:00": 0, "-01:00": -1, "-02:00": -2, "-03:00": -3, "-04:00": -4, "-05:00": -5,
+                "-06:00": -6, "-07:00": -7, "-08:00": -8, "-09:00": -9, "-10:00": -10, "-11:00": -11, "-12:00": -12
+            };
+    return dict[offset]
+}
+
+//getting text
+function getText(obj){
+    var t = $(obj).text();
+    document.getElementById("dropdownMenuButton").innerText = t;
+}
+
+//sesuaikan jam dengan setiap wilayah
+function penyesuaian(c, value){
+    c.detik = value.getSeconds();
+    c.menit = value.getMinutes();
+    c.jam = value.getHours();
+    c.tanggal = value.getDate();
+    c.hari = value.getDay();
+    c.bulan = value.getMonth();
+    c.tahun = value.getFullYear();
+    return c
+}
+
+</script>
