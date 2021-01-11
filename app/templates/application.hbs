@@ -109,8 +109,8 @@ function show(){
 
 
     //merubah background sesuai dengan jam kita 
-    if(jadwal.jam <= 6 && jadwal.jam >=0 )document.body.style.backgroundImage = "url(../assets/images/night.jpg)";
-    else if(jadwal.jam >=7 && jadwal.jam <= 23)document.body.style.backgroundImage = "url(../assets/images/day.jpg)";
+    if( (jadwal.jam >=18 && jadwal.jam <= 23) || (jadwal.jam >=0 && jadwal.jam <= 6))document.body.style.backgroundImage = "url(../assets/images/night.jpg)";
+    else document.body.style.backgroundImage = "url(../assets/images/day.jpg)";
   
 }
 
