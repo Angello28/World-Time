@@ -31,9 +31,11 @@ var obj = [
           GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-5"),
           GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-7"),
           GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-9"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-11"),
+         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-11"),
           GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-12"),
-          ]
+       ]
+
+
 
 //fungsi ganti mode               
 function gantiMode(){
@@ -62,32 +64,36 @@ function show(){
 
     //untuk jam default kita           
     class Tik {
-    constructor(detik, menit, jam, tanggal, hari, bulan, tahun) {
-    this.detik = detik;
-    this.menit = menit;
-    this.jam = jam;
-    this.tanggal = tanggal;
-    this.hari = hari;
-    this.bulan = bulan;
-    this.tahun = tahun;
-    }
+        constructor(detik, menit, jam, tanggal, hari, bulan, tahun) {
+            this.detik = detik;
+            this.menit = menit;
+            this.jam = jam;
+            this.tanggal = tanggal;
+            this.hari = hari;
+            this.bulan = bulan;
+            this.tahun = tahun;
+        }
     }
     var jadwal = new Tik(date.getSeconds(), date.getMinutes(), date.getHours(), date.getHours(), date.getDay(), date.getMonth(), date.getFullYear())
 
     //jam untuk setiap negara
-    var country = { "Eniwetok, Kwaialein (GMT - 12)" : 0, "Midway Island (GMT - 11)" : 1, "Hawaii, Honolulue (GMT - 10)" : 2, 
-                "Alaska (GMT - 9)" : 3, "America, Los Angeles (GMT - 8)" : 4, "America, Alberta (GMT - 7)" : 5, "Mexico City (GMT - 6)" : 6, 
-                "America, New York (GMT - 5)" : 7, "Chilie, Santiago (GMT - 4)" : 8, "Canada, Ottawa (GMT - 3)" : 9,
-                "Mid Atlantic (GMT - 2)" : 10,"West Africa (GMT - 1)" : 11, "British, London (GMT)" : 12, "Dutch, Amsterdam (GMT + 1)" : 13,
-                "Greece, Athena (GMT + 2)" : 14, "Iraq, Baghad (GMT + 3)" : 15, "United Arab Emirates, Abu Dhabi (GMT + 4)" : 16,
-                "India, New Delhi (GMT + 5)" : 17, "Bhutan, Thimpu (GMT + 6)" : 18, "Indonesia, Jakarta (GMT + 7)" : 19, 
-                "China, Beijing (GMT + 8)" : 20, "Japan, Tokyo (GMT + 9)" : 21, "Australia, Melbourne (GMT + 10)" : 22,
-                "Solomon Island, Honiara (GMT + 11)" : 23, "New Zealand, Wellington (GMT + 12)" : 24
+    var country = { "Eniwetok (GMT - 12)" : 0, "Samoa (GMT - 11)" : 1, "Honolulue (GMT - 10)" : 2, 
+                "Alaska (GMT - 9)" : 3, "California (GMT - 8)" : 4, "Alberta (GMT - 7)" : 5, "Mexico City (GMT - 6)" : 6, 
+                "New York (GMT - 5)" : 7, "Santiago (GMT - 4)" : 8, "Ottawa (GMT - 3)" : 9,
+                "Grytviken (GMT - 2)" : 10,"Praia (GMT - 1)" : 11, "London (GMT)" : 12, "Vienna (GMT + 1)" : 13,
+                "Athena (GMT + 2)" : 14, "Baghad (GMT + 3)" : 15, "Abu Dhabi (GMT + 4)" : 16,
+                "New Delhi (GMT + 5)" : 17, "Thimpu (GMT + 6)" : 18, "Jakarta (GMT + 7)" : 19, 
+                "Beijing (GMT + 8)" : 20, "Tokyo (GMT + 9)" : 21, "Hagåtña (GMT + 10)" : 22,
+                "Honiara" : 23, "Kingston (GMT + 12)" : 24, "Eniwetok" : 0, "Samoa" : 1, "Honolulue" : 2, 
+                "Alaska" : 3, "California" : 4, "Alberta" : 5, "Mexico City" : 6, "New York" : 7, "Santiago" : 8, "Ottawa" : 9,
+                "Grytviken" : 10,"Praia" : 11, "London" : 12, "Vienna" : 13, "Athena" : 14, "Baghad" : 15, "Abu Dhabi" : 16,
+                "New Delhi" : 17, "Thimpu" : 18, "Jakarta" : 19, "Beijing" : 20, "Tokyo" : 21, "Hagåtña" : 22,
+                "Honiara" : 23, "Kingston" : 24
     }
 
     //mengambil waktu
     if(document.getElementById("dropdownMenuButton").innerText in country){
-    jadwal = penyesuaian(jadwal, GMT[country[document.getElementById("dropdownMenuButton").innerText]]);
+        jadwal = penyesuaian(jadwal, GMT[country[document.getElementById("dropdownMenuButton").innerText]]);
     }
 
 
@@ -130,7 +136,20 @@ function GetOffSet(URL){
 //getting text
 function getText(obj){
     var t = $(obj).text();
-    document.getElementById("dropdownMenuButton").innerText = t;
+    var temp ='';
+    for(var i = 0 ; i < t.length ;i++){
+        if(t.charAt(i) != ' '){
+            temp+=t.charAt(i);
+        }else{
+            if(t.charAt(i+2)=='G'&&t.charAt(i+3)=='M'&&t.charAt(i+4)=='T' ){
+                i += t.length;
+                break;
+            }else{
+                temp+=t.charAt(i);
+            }
+        }
+    }
+    document.getElementById("dropdownMenuButton").innerText = temp;
 }
 
 //sesuaikan jam dengan setiap wilayah

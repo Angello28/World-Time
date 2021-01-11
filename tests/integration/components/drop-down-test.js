@@ -24,3 +24,4 @@ module('Integration | Component | drop-down', function(hooks) {
     assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });
+
