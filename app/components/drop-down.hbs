@@ -1,6 +1,8 @@
 <div class="dropdown col-6">
-    <button class="position1 btn btn-outline-light dropdown-toggle dropstyle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Select Country
-    </button>
-    <CountryList/>      
+<BsDropdown @tagName="span" as |dd| >
+  <dd.toggle class="position1 btn btn-outline-light dropdown-toggle dropstyle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" >
+    Select Country
+  </dd.toggle>
+  <CountryList/>
+</BsDropdown>
 </div>

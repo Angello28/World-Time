@@ -19,21 +19,24 @@
 window.onload = setInterval(show, 500);
 
 //storing json
-var obj = [
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+12"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+11"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+9"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+7"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+5"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+3"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+2"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+1"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-1"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-2"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-3"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-5"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-7"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-9"),
-         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-11"),
-          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-12"),
-       ]
+//var obj = [
+//          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+12"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+11"),
+//          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+9"),
+//          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+7"),
+//          GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+5"),
+ //         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+3"),
+ //         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+2"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT+1"),
+ //         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-1"),
+ //         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-2"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-3"),
+  //        GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-4"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-5"),
+ //         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-6"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-7"),
+ //         GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-8"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-9"),
+  //        GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-10"), GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-11"),
+  //        GetOffSet("http://worldtimeapi.org/api/timezone/Etc/GMT-12"),
+  //     ]
+
+    
+var obj = [-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 //fungsi ganti mode               
 function gantiMode(){
@@ -94,12 +97,10 @@ function show(){
         jadwal = penyesuaian(jadwal, GMT[country[document.getElementById("dropdownMenuButton").innerText]]);
     }
 
-
     //menampilkan hari kita
     document.getElementById("tampilHari").innerText = weekDay[jadwal.hari].toString() + ", "
                                                     +  jadwal.tanggal.toString() + " " + Month[jadwal.bulan] + " " 
                                                     + jadwal.tahun.toString() 
-
 
     //menampilkan jam kita sesuai dengan mode yang kita pilih
     if(document.getElementById("mode").innerText == "Seconds Mode"){
@@ -110,7 +111,6 @@ function show(){
         document.getElementById("waktu").innerText = jadwal.jam.toString().padStart(2, "0") + ":"
                                                     +  jadwal.menit.toString().padStart(2, "0")
     }
-
 
     //merubah background sesuai dengan jam kita 
     if( (jadwal.jam >=18 && jadwal.jam <= 23) || (jadwal.jam >=0 && jadwal.jam <= 6))document.body.style.backgroundImage = "url(../assets/images/night.jpg)";
