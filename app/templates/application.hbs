@@ -40,8 +40,8 @@ var obj = [-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 
 
 //fungsi ganti mode               
 function gantiMode(){
-    if(document.getElementById("mode").innerText == "Seconds Mode")document.getElementById("mode").innerText = "Normal Mode"
-    else if(document.getElementById("mode").innerText == "Normal Mode")document.getElementById("mode").innerText = "Seconds Mode"
+    if(document.getElementById("mode").innerText == "Full Mode")document.getElementById("mode").innerText = "Normal Mode"
+    else if(document.getElementById("mode").innerText == "Normal Mode")document.getElementById("mode").innerText = "Full Mode"
     setInterval(show, 500);
 }
 
@@ -103,7 +103,7 @@ function show(){
                                                     + jadwal.tahun.toString() 
 
     //menampilkan jam kita sesuai dengan mode yang kita pilih
-    if(document.getElementById("mode").innerText == "Seconds Mode"){
+    if(document.getElementById("mode").innerText == "Full Mode"){
         document.getElementById("waktu").innerText = jadwal.jam.toString().padStart(2, "0") + ":"
                                                 +  jadwal.menit.toString().padStart(2, "0") + ":" 
                                                 + jadwal.detik.toString().padStart(2, "0")
